@@ -1,11 +1,8 @@
-from info import info
 from keras.datasets import mnist
 import json
 import tensorflow
 
 def handle(request):
-  info(request)
-  info(request.headers)
   content_type = request.headers.get('Content-Type')
   if (content_type == 'application/json'):
     config_json = request.json
@@ -59,7 +56,6 @@ def handle(request):
   stringlist = []
   model.summary(print_fn=lambda x: stringlist.append(x))
   short_model_summary = "\n".join(stringlist)
-  info(short_model_summary)
 
   response_output_dictionary = {
     # 'input': config_json,
