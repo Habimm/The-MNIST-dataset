@@ -60,6 +60,12 @@ def handle(request, repo_path):
   optimiser=tensorflow.keras.optimizers.Adam(learning_rate=learning_rate, name='Adam')
   model.compile(loss='categorical_crossentropy', optimizer=optimiser, metrics=['accuracy'])
 
+  traces_path = os.path.join(f'.{repo_path}', 'traces')
+
+  # Makes a folder for storing the png images
+  if not os.path.exists(traces_path):
+    os.mkdir(traces_path)
+
   joined_fit_log_path = os.path.join(f'.{repo_path}', 'traces', 'fit_log.csv')
 
   training_history = model.fit(
