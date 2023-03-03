@@ -19,12 +19,9 @@ class FitLogCallback(tensorflow.keras.callbacks.Callback):
     print(f'{current_timestamp},{current_accuracy}', file=self.fit_log_file)
 
 # repo_path == '/the_mnist_dataset'
-def handle(request, repo_path):
-  content_type = request.headers.get('Content-Type')
-  if content_type == 'application/json':
-    config_json = request.json
-  else:
-    return f'Content-Type {content_type} not supported!'
+def handle(pb2_request, repo_path):
+  # config_json is a <class 'dict'>
+  config_json = json.loads(pb2_request.input)
 
   # Load example MNIST data and pre-process it
   # (x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
