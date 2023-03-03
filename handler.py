@@ -90,6 +90,7 @@ def handle(request, repo_path):
   fit_log_table['x'] = fit_log_table['timestamp'].map(
     lambda timestamp: timestamp - angefangen
   )
+  # ValueError: Invalid value NaN (not a number)
   fit_log_table['datetime'] = fit_log_table['timestamp'].map(
     lambda timestamp:
       datetime.datetime.
@@ -105,7 +106,6 @@ def handle(request, repo_path):
   # callbacks
   # tensorflow.keras.callbacks.Callback.on_train_batch_end.logs['accuracy']
   # refer to t_test or t_train?
-  info(t_test)
   fit_log_table['absolute_accuracy'] = (fit_log_table['accuracy'] * len(t_test)).astype('int64')
 
   fit_log_json = fit_log_table.to_json(orient='records', indent=2)
